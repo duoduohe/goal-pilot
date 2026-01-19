@@ -24,13 +24,13 @@ Personal goal achievement guidance that transforms annual goals into actionable 
 ### Via Claude Code CLI
 
 ```bash
-/plugin marketplace add github:Hzzy2O/goal-pilot
+/plugin marketplace add github:duoduohe/goal-pilot
 ```
 
 ### Manual Installation
 
 ```bash
-git clone https://github.com/Hzzy2O/goal-pilot.git
+git clone https://github.com/duoduohe/goal-pilot.git
 cd goal-pilot
 claude plugin install .
 ```
