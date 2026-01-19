@@ -2,12 +2,12 @@
 description: Initialize Goal Pilot framework. Creates state.json, CSV files, and sets up milestones. Run this first before using other commands.
 args: "[goal] [target_date] [domains...]"
 examples:
-  - "/gp:setup"
-  - "/gp:setup 年底达到10万MRR 2026-12-31"
-  - "/gp:setup --domains fitness,english"
+  - "/goal-pilot:setup"
+  - "/goal-pilot:setup 年底达到10万MRR 2026-12-31"
+  - "/goal-pilot:setup --domains fitness,english"
 ---
 
-# /gp:setup - Goal Framework Initialization
+# /goal-pilot:setup - Goal Framework Initialization
 
 ## Purpose
 
@@ -172,12 +172,12 @@ GP_LAST_SESSION_DATE: [today]
 - `data/pins.csv` - Long-term knowledge
 
 ### Next Steps
-1. Run `/gp:today` to get today's tasks
-2. At end of day, run `/gp:review` to record progress
-3. Weekly: `/gp:review week` for weekly summary
-4. Monthly: `/gp:review month` for monthly summary
+1. Run `/goal-pilot:today` to get today's tasks
+2. At end of day, run `/goal-pilot:review` to record progress
+3. Weekly: `/goal-pilot:review week` for weekly summary
+4. Monthly: `/goal-pilot:review month` for monthly summary
 
-Ready to start! Run `/gp:today` to begin.
+Ready to start! Run `/goal-pilot:today` to begin.
 ```
 
 ## Error Handling

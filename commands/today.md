@@ -2,12 +2,12 @@
 description: Generate today's prioritized tasks based on goal, progress, and recent context. Uses layered context retrieval with decay weights. Applies automatic task adjustments based on calibration rules.
 args: ""
 examples:
-  - "/gp:today"
+  - "/goal-pilot:today"
   - "今天做什么"
   - "What's today's task"
 ---
 
-# /gp:today - Daily Task Generation
+# /goal-pilot:today - Daily Task Generation
 
 ## Purpose
 
@@ -20,7 +20,7 @@ Generate today's prioritized task list based on:
 
 ## Prerequisites
 
-- `data/state.json` must exist (run `/gp:setup` first if not)
+- `data/state.json` must exist (run `/goal-pilot:setup` first if not)
 - Goal and milestones must be defined
 
 ## Workflow
@@ -29,7 +29,7 @@ Generate today's prioritized task list based on:
 
 ```
 1. Read data/state.json
-2. If not found → Prompt user to run /gp:setup
+2. If not found → Prompt user to run /goal-pilot:setup
 3. Validate schema_version
 4. Load calibration.task_adjustment flags
 ```
@@ -59,7 +59,7 @@ Before generating today's tasks, please address this:
 1. **Extend milestone deadline** - Push [milestone] to [new date]
 2. **Reduce scope** - Remove [suggestions] from milestone
 3. **Redefine success** - Lower the bar for [milestone]
-4. **Do review first** - Run `/gp:review` to analyze what's blocking
+4. **Do review first** - Run `/goal-pilot:review` to analyze what's blocking
 
 Choose an option to proceed:
 ```
@@ -73,7 +73,7 @@ You're slightly behind on milestone [M#] (gap: [X]%).
 Consider:
 - Focusing on highest-impact tasks today
 - Deferring nice-to-have items
-- Running `/gp:review` if blocked
+- Running `/goal-pilot:review` if blocked
 
 Proceeding with task generation...
 ```
@@ -208,12 +208,12 @@ After displaying tasks:
 ```markdown
 ## Setup Required
 
-No GTD data found. Please run `/gp:setup` first to:
+No GTD data found. Please run `/goal-pilot:setup` first to:
 1. Define your goal
 2. Set milestones
 3. Create data files
 
-Run `/gp:setup` to get started.
+Run `/goal-pilot:setup` to get started.
 ```
 
 **Empty goal:**
@@ -221,12 +221,12 @@ Run `/gp:setup` to get started.
 ## Goal Not Defined
 
 Your state.json exists but has no goal defined.
-Please run `/gp:setup` to set your goal.
+Please run `/goal-pilot:setup` to set your goal.
 ```
 
 ## Natural Language Triggers
 
-These phrases invoke /gp:today:
+These phrases invoke /goal-pilot:today:
 - "今天做什么"
 - "今天的任务"
 - "What's today's task"

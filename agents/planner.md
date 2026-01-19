@@ -261,7 +261,7 @@ Check days until current milestone:
 
 **No milestones defined:**
 - Use goal.statement to derive outcomes
-- Suggest running /gp:setup to add milestones
+- Suggest running /goal-pilot:setup to add milestones
 
 **Conflicting pins:**
 - Flag the conflict

@@ -28,9 +28,9 @@ This skill is the brain of the Goal Pilot plugin. It:
 
 | Command | How It Uses goal-pilot |
 |---------|----------------------|
-| `/gp:setup` | Creates goal framework per SKILL.md |
-| `/gp:today` | Generates tasks using planner subagent |
-| `/gp:review` | Collects review data, triggers calibrator |
+| `/goal-pilot:setup` | Creates goal framework per SKILL.md |
+| `/goal-pilot:today` | Generates tasks using planner subagent |
+| `/goal-pilot:review` | Collects review data, triggers calibrator |
 
 ### Integration Points
 
@@ -92,9 +92,9 @@ goal-pilot <-- commands (setup, today, review)
 
 ### Manual Testing
 
-1. Run `/gp:setup` with sample goal
-2. Run `/gp:today` to verify task generation
-3. Run `/gp:review` to test calibration flow
+1. Run `/goal-pilot:setup` with sample goal
+2. Run `/goal-pilot:today` to verify task generation
+3. Run `/goal-pilot:review` to test calibration flow
 
 ### Example Scenarios
 

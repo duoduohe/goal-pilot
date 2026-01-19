@@ -2,15 +2,15 @@
 description: Conduct structured review and trigger calibration. Supports daily (default), weekly, and monthly review types. Collects structured fields, persists to CSV, and updates state.json based on calibration rules.
 args: "[day|week|month]"
 examples:
-  - "/gp:review"
-  - "/gp:review day"
-  - "/gp:review week"
-  - "/gp:review month"
+  - "/goal-pilot:review"
+  - "/goal-pilot:review day"
+  - "/goal-pilot:review week"
+  - "/goal-pilot:review month"
   - "做复盘"
   - "周复盘"
 ---
 
-# /gp:review - Structured Review & Calibration
+# /goal-pilot:review - Structured Review & Calibration
 
 ## Purpose
 
@@ -158,7 +158,7 @@ Anything else to record?
 
 ### Next Steps
 - Tomorrow: [next_day_focus]
-- Run `/gp:today` tomorrow to get tasks
+- Run `/goal-pilot:today` tomorrow to get tasks
 ```
 
 ## Weekly Review
@@ -362,23 +362,23 @@ Calculate behind_ratio and update warnings.
 
 **No state.json:**
 ```markdown
-Please run `/gp:setup` first to initialize your goal.
+Please run `/goal-pilot:setup` first to initialize your goal.
 ```
 
 **No daily reviews for weekly summary:**
 ```markdown
 No daily reviews found for this week.
-Run `/gp:review` at least once before weekly review.
+Run `/goal-pilot:review` at least once before weekly review.
 ```
 
 ## Natural Language Triggers
 
 | Phrase | Maps To |
 |--------|---------|
-| "做复盘" | /gp:review (day) |
-| "日复盘" | /gp:review day |
-| "周复盘" | /gp:review week |
-| "月复盘" | /gp:review month |
-| "Do a review" | /gp:review (day) |
-| "Weekly review" | /gp:review week |
-| "Monthly review" | /gp:review month |
+| "做复盘" | /goal-pilot:review (day) |
+| "日复盘" | /goal-pilot:review day |
+| "周复盘" | /goal-pilot:review week |
+| "月复盘" | /goal-pilot:review month |
+| "Do a review" | /goal-pilot:review (day) |
+| "Weekly review" | /goal-pilot:review week |
+| "Monthly review" | /goal-pilot:review month |

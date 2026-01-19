@@ -20,9 +20,9 @@ goal-pilot-plugin/
 │   ├── goal-pilot/          # Main skill
 │   └── goal-data/           # Data layer operations
 ├── commands/                # Slash commands
-│   ├── setup.md             # /gp:setup
-│   ├── today.md             # /gp:today
-│   └── review.md            # /gp:review
+│   ├── setup.md             # /goal-pilot:setup
+│   ├── today.md             # /goal-pilot:today
+│   └── review.md            # /goal-pilot:review
 ├── agents/                  # Subagents
 │   ├── planner.md           # Task planning
 │   ├── calibrator.md        # Calibration rules
@@ -83,15 +83,15 @@ graph TD
 ### Data Flow
 
 ```
-/gp:setup    ->  state.json (goal, milestones)
+/goal-pilot:setup    ->  state.json (goal, milestones)
                   CSV files (empty with headers)
 
-/gp:today    ->  Load state + context (L0/L1/pins)
+/goal-pilot:today    ->  Load state + context (L0/L1/pins)
                   Apply decay weights
                   Invoke planner subagent
                   Output: Top 3 Outcomes
 
-/gp:review   ->  Collect structured fields
+/goal-pilot:review   ->  Collect structured fields
                   Append to CSV
                   Invoke calibrator subagent
                   Update state.json
@@ -116,7 +116,7 @@ graph TD
 
 **Progress Deviation:**
 - `behind_ratio` >= 0.15 -> Yellow warning
-- `behind_ratio` >= 0.30 -> Red alert (blocks /gp:today)
+- `behind_ratio` >= 0.30 -> Red alert (blocks /goal-pilot:today)
 
 ## Running and Development
 
@@ -124,20 +124,20 @@ graph TD
 
 | Command | Description |
 |---------|-------------|
-| `/gp:setup` | Initialize goal framework, create data files |
-| `/gp:today` | Generate today's tasks with layered context |
-| `/gp:review` | Daily review (default) |
-| `/gp:review week` | Weekly review + summary generation |
-| `/gp:review month` | Monthly review + summary generation |
+| `/goal-pilot:setup` | Initialize goal framework, create data files |
+| `/goal-pilot:today` | Generate today's tasks with layered context |
+| `/goal-pilot:review` | Daily review (default) |
+| `/goal-pilot:review week` | Weekly review + summary generation |
+| `/goal-pilot:review month` | Monthly review + summary generation |
 
 ### Natural Language Support
 
 | Phrase | Maps To |
 |--------|---------|
-| "What's today's task?" / "What should I do today?" | `/gp:today` |
-| "Do a review" / "End of day review" | `/gp:review` |
-| "Weekly review" | `/gp:review week` |
-| "Monthly review" | `/gp:review month` |
+| "What's today's task?" / "What should I do today?" | `/goal-pilot:today` |
+| "Do a review" / "End of day review" | `/goal-pilot:review` |
+| "Weekly review" | `/goal-pilot:review week` |
+| "Monthly review" | `/goal-pilot:review month` |
 
 ## Testing Strategy
 

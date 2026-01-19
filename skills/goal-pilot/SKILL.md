@@ -64,7 +64,7 @@ This enables:
               ↓                           ↓
 ┌─────────────────────────┐   ┌─────────────────────────┐
 │  NEW USER               │   │  RETURNING USER         │
-│  • Run /gp:setup       │   │  • Load state.json      │
+│  • Run /goal-pilot:setup       │   │  • Load state.json      │
 │  • Define goal          │   │  • Check calibration    │
 │  • Create state.json    │   │  • Load layered context │
 │  • Initialize CSVs      │   │  • Generate today's     │
@@ -72,7 +72,7 @@ This enables:
                               └─────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│  DAILY EXECUTION (/gp:today)                               │
+│  DAILY EXECUTION (/goal-pilot:today)                               │
 │  • Load L0/L1/L2/pins context with decay weights            │
 │  • Invoke planner subagent                                  │
 │  • Apply task_adjustment flags (small_steps, split, etc.)   │
@@ -80,7 +80,7 @@ This enables:
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│  REVIEW (/gp:review [day|week|month])                      │
+│  REVIEW (/goal-pilot:review [day|week|month])                      │
 │  • Collect structured fields                                │
 │  • Append to appropriate CSV                                │
 │  • Invoke calibrator subagent                               │
@@ -126,7 +126,7 @@ behind_ratio = time_progress - work_progress
 |--------------|--------|--------|
 | < 0.15 | On Track | Normal operation |
 | >= 0.15, < 0.30 | Yellow | Suggest scope reduction |
-| >= 0.30 | Red | Block /gp:today until addressed |
+| >= 0.30 | Red | Block /goal-pilot:today until addressed |
 
 ### Daily Deviation Pattern Triggers
 
@@ -172,7 +172,7 @@ Today is [Day, Date]
 ```markdown
 ## Goal Pilot - Let's Set Up Your Goal
 
-Run `/gp:setup` to initialize your goal framework.
+Run `/goal-pilot:setup` to initialize your goal framework.
 
 Or tell me:
 1. **What's your goal?** (Be specific and measurable)
@@ -183,14 +183,14 @@ Or tell me:
 
 ### Step 1: Goal Framework Generation
 
-After user provides goal information via `/gp:setup`:
+After user provides goal information via `/goal-pilot:setup`:
 
 1. Create `data/state.json` with schema
 2. Create empty CSV files with headers
 3. Store Memory pointers (GTD_DATA_PATH, GP_LANG, GP_LAST_SESSION_DATE)
 4. Display goal framework summary
 
-### Step 2: Daily Task Generation (/gp:today)
+### Step 2: Daily Task Generation (/goal-pilot:today)
 
 **Context Loading:**
 1. Read state.json for plan and calibration settings
@@ -208,7 +208,7 @@ After user provides goal information via `/gp:setup`:
 - Input: state + weighted context
 - Output: Today's Top 3 Outcomes with Next Actions
 
-### Step 3: Review Execution (/gp:review)
+### Step 3: Review Execution (/goal-pilot:review)
 
 **Collect Structured Fields:**
 
@@ -251,11 +251,11 @@ When calibrator returns patch:
 
 | Command | Action |
 |---------|--------|
-| `/gp:setup` | Initialize goal framework, create data files |
-| `/gp:today` | Generate today's tasks with layered context |
-| `/gp:review` | Daily review (default) |
-| `/gp:review week` | Weekly review + summary generation |
-| `/gp:review month` | Monthly review + summary generation |
+| `/goal-pilot:setup` | Initialize goal framework, create data files |
+| `/goal-pilot:today` | Generate today's tasks with layered context |
+| `/goal-pilot:review` | Daily review (default) |
+| `/goal-pilot:review week` | Weekly review + summary generation |
+| `/goal-pilot:review month` | Monthly review + summary generation |
 
 ## Natural Language Compatibility
 
@@ -263,21 +263,21 @@ These phrases still work:
 
 | Phrase | Maps To |
 |--------|---------|
-| "今天做什么" / "What's today's task" | `/gp:today` |
-| "做复盘" / "Do a review" | `/gp:review` |
-| "周复盘" / "Weekly review" | `/gp:review week` |
-| "月复盘" / "Monthly review" | `/gp:review month` |
+| "今天做什么" / "What's today's task" | `/goal-pilot:today` |
+| "做复盘" / "Do a review" | `/goal-pilot:review` |
+| "周复盘" / "Weekly review" | `/goal-pilot:review week` |
+| "月复盘" / "Monthly review" | `/goal-pilot:review month` |
 | "查看进度" / "Show progress" | Display state.json summary |
 
 ## Subagent Integration
 
 ### Planner Subagent
-- **When**: `/gp:today` execution
+- **When**: `/goal-pilot:today` execution
 - **Input**: state.json + weighted context (L0/L1/L2/pins)
 - **Output**: Top 3 Outcomes with Next Actions
 
 ### Calibrator Subagent
-- **When**: After any `/gp:review`
+- **When**: After any `/goal-pilot:review`
 - **Input**: Latest review + state.json + recent summaries
 - **Output**: state.json patch + explanation
 

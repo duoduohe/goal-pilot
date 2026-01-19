@@ -249,7 +249,7 @@ Based on:
 
 ### Weekly Review
 
-When `/gp:review week` is called:
+When `/goal-pilot:review week` is called:
 
 ```
 1. Review command collects standard weekly fields
@@ -285,7 +285,7 @@ Similar flow but with monthly scope:
 {
   "error": "domain_not_configured",
   "message": "Domain 'fitness' is not configured in state.json.domains",
-  "suggestion": "Run /gp:setup to add this domain"
+  "suggestion": "Run /goal-pilot:setup to add this domain"
 }
 ```
 

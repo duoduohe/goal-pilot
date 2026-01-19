@@ -9,7 +9,7 @@ Personal goal achievement guidance that transforms annual goals into actionable 
 - **Structured Data Persistence**: Review records saved to CSV files, state tracking with JSON
 - **Layered Context Decay**: Older data has less weight
 - **Automatic Calibration**: Task adjustments based on detected patterns
-- **Slash Commands**: `/gp:setup`, `/gp:today`, `/gp:review`
+- **Slash Commands**: `/goal-pilot:setup`, `/goal-pilot:today`, `/goal-pilot:review`
 - **Subagent Architecture**: Planner, Calibrator, Domain Analyst
 - **Goal → SOP Framework**: High-level goals into structured plans with quarterly milestones
 - **Daily Task Generation**: Prioritized task lists based on layered context (last 7 days reviews, weekly summaries, pins)
@@ -42,7 +42,7 @@ claude plugin install .
 Run the setup command:
 
 ```
-/gp:setup
+/goal-pilot:setup
 ```
 
 Or describe your goal naturally:
@@ -61,7 +61,7 @@ Claude will:
 ### Daily Usage
 
 ```
-/gp:today
+/goal-pilot:today
 ```
 
 Or use natural language:
@@ -80,7 +80,7 @@ Claude will:
 ### Daily Review
 
 ```
-/gp:review
+/goal-pilot:review
 ```
 
 Claude will:
@@ -92,27 +92,27 @@ Claude will:
 ### Weekly/Monthly Reviews
 
 ```
-/gp:review week
-/gp:review month
+/goal-pilot:review week
+/goal-pilot:review month
 ```
 
 ## Slash Commands
 
 | Command | Action |
 |---------|--------|
-| `/gp:setup` | Initialize goal, create data files |
-| `/gp:today` | Generate today's tasks with layered context |
-| `/gp:review` | Daily review (default) |
-| `/gp:review week` | Weekly review + summary generation |
-| `/gp:review month` | Monthly review + summary generation |
+| `/goal-pilot:setup` | Initialize goal, create data files |
+| `/goal-pilot:today` | Generate today's tasks with layered context |
+| `/goal-pilot:review` | Daily review (default) |
+| `/goal-pilot:review week` | Weekly review + summary generation |
+| `/goal-pilot:review month` | Monthly review + summary generation |
 
 ## Natural Language
 
 | Phrase | Maps To |
 |--------|---------|
-| "What's today's task?" / "今天做什么" | `/gp:today` |
-| "Do a review" / "做复盘" | `/gp:review` |
-| "Weekly review" / "周复盘" | `/gp:review week` |
+| "What's today's task?" / "今天做什么" | `/goal-pilot:today` |
+| "Do a review" / "做复盘" | `/goal-pilot:review` |
+| "Weekly review" / "周复盘" | `/goal-pilot:review week` |
 | "Show progress" / "查看进度" | Display state.json summary |
 | "Reset goal" / "重置目标" | Clear data, start fresh |
 
@@ -145,9 +145,9 @@ goal-pilot-plugin/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin manifest
 ├── commands/
-│   ├── setup.md             # /gp:setup command
-│   ├── today.md             # /gp:today command
-│   └── review.md            # /gp:review command
+│   ├── setup.md             # /goal-pilot:setup command
+│   ├── today.md             # /goal-pilot:today command
+│   └── review.md            # /goal-pilot:review command
 ├── agents/
 │   ├── planner.md           # Task planning subagent
 │   ├── calibrator.md        # Calibration rules subagent
@@ -190,7 +190,7 @@ All actual data is in files in the `data/` directory.
 ### Setup Flow
 
 ```
-User: /gp:setup
+User: /goal-pilot:setup
 
 Claude: ## Goal Pilot Setup
 
@@ -220,13 +220,13 @@ Claude: ## Setup Complete!
 | Q3 | Systematize | 2026-09-30 | $5K MRR |
 | Q4 | Achieve | 2026-12-31 | $10K MRR |
 
-Run `/gp:today` to start!
+Run `/goal-pilot:today` to start!
 ```
 
 ### Daily Tasks with Calibration
 
 ```
-User: /gp:today
+User: /goal-pilot:today
 
 Claude: ## Today: Monday, January 19, 2026
 

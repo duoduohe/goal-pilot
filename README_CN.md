@@ -9,7 +9,7 @@
 - **结构化数据持久化**：复盘记录保存到 CSV 文件，状态追踪使用 JSON
 - **分层上下文衰减**：越早的数据权重越低
 - **自动校准**：基于检测到的模式自动调整任务
-- **Slash 命令**：`/gp:setup`、`/gp:today`、`/gp:review`
+- **Slash 命令**：`/goal-pilot:setup`、`/goal-pilot:today`、`/goal-pilot:review`
 - **子代理架构**：Planner、Calibrator、Domain Analyst
 - **目标 → SOP 框架**：将高层目标转化为带季度里程碑的结构化计划
 - **每日任务生成**：基于分层上下文（最近 7 天复盘、周摘要、pins）的优先级任务列表
@@ -42,7 +42,7 @@ claude plugin install .
 运行设置命令：
 
 ```
-/gp:setup
+/goal-pilot:setup
 ```
 
 或者自然描述你的目标：
@@ -61,7 +61,7 @@ Claude 将会：
 ### 日常使用
 
 ```
-/gp:today
+/goal-pilot:today
 ```
 
 或自然语言：
@@ -80,7 +80,7 @@ Claude 将会：
 ### 日复盘
 
 ```
-/gp:review
+/goal-pilot:review
 ```
 
 Claude 将会：
@@ -92,27 +92,27 @@ Claude 将会：
 ### 周/月复盘
 
 ```
-/gp:review week
-/gp:review month
+/goal-pilot:review week
+/goal-pilot:review month
 ```
 
 ## Slash 命令
 
 | 命令 | 动作 |
 |------|------|
-| `/gp:setup` | 初始化目标，创建数据文件 |
-| `/gp:today` | 基于分层上下文生成今日任务 |
-| `/gp:review` | 日复盘（默认）|
-| `/gp:review week` | 周复盘 + 生成摘要 |
-| `/gp:review month` | 月复盘 + 生成摘要 |
+| `/goal-pilot:setup` | 初始化目标，创建数据文件 |
+| `/goal-pilot:today` | 基于分层上下文生成今日任务 |
+| `/goal-pilot:review` | 日复盘（默认）|
+| `/goal-pilot:review week` | 周复盘 + 生成摘要 |
+| `/goal-pilot:review month` | 月复盘 + 生成摘要 |
 
 ## 自然语言
 
 | 短语 | 映射到 |
 |------|--------|
-| "今天做什么" / "What's today's task?" | `/gp:today` |
-| "做复盘" / "Do review" | `/gp:review` |
-| "周复盘" / "Weekly review" | `/gp:review week` |
+| "今天做什么" / "What's today's task?" | `/goal-pilot:today` |
+| "做复盘" / "Do review" | `/goal-pilot:review` |
+| "周复盘" / "Weekly review" | `/goal-pilot:review week` |
 | "查看进度" / "Show progress" | 显示 state.json 摘要 |
 | "重置目标" / "Reset goal" | 清除数据，重新开始 |
 
@@ -145,9 +145,9 @@ goal-pilot-plugin/
 ├── .claude-plugin/
 │   └── plugin.json          # 插件清单
 ├── commands/
-│   ├── setup.md             # /gp:setup 命令
-│   ├── today.md             # /gp:today 命令
-│   └── review.md            # /gp:review 命令
+│   ├── setup.md             # /goal-pilot:setup 命令
+│   ├── today.md             # /goal-pilot:today 命令
+│   └── review.md            # /goal-pilot:review 命令
 ├── agents/
 │   ├── planner.md           # 任务规划子代理
 │   ├── calibrator.md        # 校准规则子代理
@@ -190,7 +190,7 @@ GP_LAST_SESSION_DATE: 2026-01-19
 ### 设置流程
 
 ```
-用户: /gp:setup
+用户: /goal-pilot:setup
 
 Claude: ## Goal Pilot 设置
 
@@ -220,13 +220,13 @@ Claude: ## 设置完成！
 | Q3 | 系统化 | 2026-09-30 | $5K MRR |
 | Q4 | 达成 | 2026-12-31 | $10K MRR |
 
-运行 `/gp:today` 开始！
+运行 `/goal-pilot:today` 开始！
 ```
 
 ### 带校准的每日任务
 
 ```
-用户: /gp:today
+用户: /goal-pilot:today
 
 Claude: ## 今天: 2026年1月19日 周一
 

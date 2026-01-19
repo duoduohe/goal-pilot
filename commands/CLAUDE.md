@@ -10,13 +10,13 @@ This module defines the user-facing slash commands:
 
 | Command | File | Description |
 |---------|------|-------------|
-| `/gp:setup` | `setup.md` | Initialize goal framework |
-| `/gp:today` | `today.md` | Generate daily tasks |
-| `/gp:review` | `review.md` | Conduct structured reviews |
+| `/goal-pilot:setup` | `setup.md` | Initialize goal framework |
+| `/goal-pilot:today` | `today.md` | Generate daily tasks |
+| `/goal-pilot:review` | `review.md` | Conduct structured reviews |
 
 ## Command Details
 
-### /gp:setup
+### /goal-pilot:setup
 
 **Purpose**: Create initial goal framework and data files
 
@@ -36,7 +36,7 @@ This module defines the user-facing slash commands:
 - `data/summaries_monthly.csv`
 - `data/pins.csv`
 
-### /gp:today
+### /goal-pilot:today
 
 **Purpose**: Generate today's prioritized task list
 
@@ -53,7 +53,7 @@ This module defines the user-facing slash commands:
 - `agents/planner.md` - Task generation
 - `skills/goal-data/SKILL.md` - Context loading
 
-### /gp:review
+### /goal-pilot:review
 
 **Purpose**: Conduct structured review and trigger calibration
 
@@ -76,11 +76,11 @@ This module defines the user-facing slash commands:
 
 | Phrase | Command |
 |--------|---------|
-| "Setup my goal" | /gp:setup |
-| "What's today's task?" / "What should I do today?" | /gp:today |
-| "Do a review" / "End of day" | /gp:review |
-| "Weekly review" | /gp:review week |
-| "Monthly review" | /gp:review month |
+| "Setup my goal" | /goal-pilot:setup |
+| "What's today's task?" / "What should I do today?" | /goal-pilot:today |
+| "Do a review" / "End of day" | /goal-pilot:review |
+| "Weekly review" | /goal-pilot:review week |
+| "Monthly review" | /goal-pilot:review month |
 
 ## Registration
 

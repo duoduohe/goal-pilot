@@ -16,9 +16,9 @@ This module contains three subagents that handle specialized logic:
 
 | Agent | File | Invoked By | Purpose |
 |-------|------|------------|---------|
-| planner | `planner.md` | `/gp:today` | Task planning with context |
-| calibrator | `calibrator.md` | `/gp:review` | Pattern detection and state patches |
-| domain_analyst | `domain_analyst.md` | `/gp:review week/month` | Domain-specific analysis |
+| planner | `planner.md` | `/goal-pilot:today` | Task planning with context |
+| calibrator | `calibrator.md` | `/goal-pilot:review` | Pattern detection and state patches |
+| domain_analyst | `domain_analyst.md` | `/goal-pilot:review week/month` | Domain-specific analysis |
 
 ## Planner Subagent
 
@@ -118,7 +118,7 @@ This module contains three subagents that handle specialized logic:
 ## Data Flow
 
 ```
-/gp:today
+/goal-pilot:today
     |
     v
 [Load state + context]
@@ -129,7 +129,7 @@ This module contains three subagents that handle specialized logic:
     v
 [Display to user]
 
-/gp:review
+/goal-pilot:review
     |
     v
 [Collect review fields]
