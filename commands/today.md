@@ -26,7 +26,14 @@ Generate today's prioritized task list based on:
 date +%Y-%m-%d
 ```
 
-Store this result as `TODAY_DATE`. Use this value for all date calculations and display. DO NOT rely on your internal knowledge for the current date.
+Store this result as `TODAY_DATE`. Use this value for all date calculations and display.
+
+**NEVER assume the current year. ALWAYS run date command first.**
+
+Also run date command again:
+- Before calculating progress/behind_ratio
+- Before displaying "Today: [date]" header
+- Before any date arithmetic
 
 ## Prerequisites
 

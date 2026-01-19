@@ -15,7 +15,7 @@ Generate today's task plan by synthesizing:
 
 ## Input
 
-The planner receives:
+The planner receives (note: `today` field should come from `date +%Y-%m-%d` command, not assumed):
 
 ```json
 {
@@ -35,7 +35,7 @@ The planner receives:
     "L1": [/* weekly summaries with weights */],
     "pins": [/* active pins */]
   },
-  "today": "2026-01-19"
+  "today": "[FROM date +%Y-%m-%d]"
 }
 ```
 

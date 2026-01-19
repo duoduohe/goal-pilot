@@ -15,6 +15,8 @@ Analyze review data and apply calibration rules to:
 
 ## Input
 
+Note: `today` field should come from `date +%Y-%m-%d` command, not assumed.
+
 ```json
 {
   "review": {
@@ -26,7 +28,7 @@ Analyze review data and apply calibration rules to:
     "recent_daily_reviews": [/* last 7 days */],
     "recent_weekly_summaries": [/* last 4 weeks */]
   },
-  "today": "2026-01-19"
+  "today": "[FROM date +%Y-%m-%d]"
 }
 ```
 

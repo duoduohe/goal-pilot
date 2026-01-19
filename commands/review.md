@@ -29,7 +29,14 @@ Conduct a structured review that:
 date +%Y-%m-%d
 ```
 
-Store this result as `TODAY_DATE`. Use this value for all date fields in CSV records and calculations. DO NOT rely on your internal knowledge for the current date.
+Store this result as `TODAY_DATE`. Use this value for all date fields in CSV records.
+
+**NEVER assume the current year. ALWAYS run date command first.**
+
+Also run date command again:
+- Before writing to CSV (for date field)
+- Before displaying "Daily Review - [Date]" header
+- Before calculating week/month periods
 
 ## Review Types
 

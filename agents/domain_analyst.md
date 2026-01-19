@@ -14,6 +14,8 @@ Provide focused analysis for specific domains configured in state.json.domains. 
 
 ## Input
 
+Note: `period` dates should come from `date +%Y-%m-%d` command, not assumed.
+
 ```json
 {
   "domain": "fitness",
@@ -25,8 +27,8 @@ Provide focused analysis for specific domains configured in state.json.domains. 
   "pins": [/* domain-relevant pins */],
   "review_type": "week|month",
   "period": {
-    "start": "2026-01-13",
-    "end": "2026-01-19"
+    "start": "[calculated from date command]",
+    "end": "[FROM date +%Y-%m-%d]"
   }
 }
 ```
