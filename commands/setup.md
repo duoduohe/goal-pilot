@@ -18,6 +18,30 @@ Initialize the Goal Pilot data structure and define your goal framework. This co
 3. Collects user background for personalized guidance
 4. Sets up Claude Memory pointers
 
+## CRITICAL: Use AskUserQuestion Tool
+
+**You MUST use the `AskUserQuestion` tool to collect user input during setup.**
+
+Do NOT simply output markdown prompts and wait for user response. Instead, use AskUserQuestion with appropriate options for each step.
+
+Example:
+```
+AskUserQuestion({
+  questions: [{
+    header: "Language",
+    question: "Preferred language for Goal Pilot?",
+    options: [
+      { label: "English", description: "English responses" },
+      { label: "中文", description: "Chinese responses" },
+      { label: "日本語", description: "Japanese responses" }
+    ],
+    multiSelect: false
+  }]
+})
+```
+
+This ensures a structured, interactive setup experience.
+
 ## CRITICAL: Get Current Date At Key Points
 
 **You MUST get the current date using Bash tool at these points:**
@@ -67,129 +91,235 @@ Example of CORRECT behavior:
 
 ### Step 3: Collect Goal Information
 
-If not provided as arguments, ask user:
+Use AskUserQuestion tool to collect goal information:
 
-```markdown
-## Goal Pilot Setup - Step 1/4: Define Your Goal
-
-1. **Goal Statement**: What do you want to achieve? (Be specific and measurable)
-   Example: "Launch SaaS product and reach $10K MRR"
-
-2. **Target Date**: When do you want to achieve this? (YYYY-MM-DD)
-   Example: 2026-12-31
-
-3. **North Star Metric**: What single number best measures success?
-   Example: "Monthly Recurring Revenue (MRR)"
-
-4. **Language**: Preferred language for responses
-   - English / 中文 / 日本語
-
-5. **Timezone**: Your timezone
-   Example: Asia/Shanghai, America/New_York
 ```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Goal Type",
+      question: "What type of goal are you working towards?",
+      options: [
+        { label: "Product/Business", description: "SaaS, startup, revenue goals" },
+        { label: "Fitness", description: "Weight loss, muscle gain, health" },
+        { label: "Learning", description: "Language, skills, certifications" },
+        { label: "Career", description: "Promotion, job change, skills" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+Then ask for specifics based on goal type:
+
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Timeline",
+      question: "When do you want to achieve this goal?",
+      options: [
+        { label: "3 months", description: "Short-term intensive" },
+        { label: "6 months", description: "Medium-term focused" },
+        { label: "12 months", description: "Full year plan" },
+        { label: "Custom", description: "Specify your own date" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+For language preference:
+
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Language",
+      question: "Preferred language for Goal Pilot responses?",
+      options: [
+        { label: "English", description: "English responses" },
+        { label: "中文", description: "Chinese responses" },
+        { label: "日本語", description: "Japanese responses" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+**Note**: For open-ended questions like "Goal Statement" or "North Star Metric", use AskUserQuestion with the "Other" option (automatically included) to allow free-form input.
 
 ### Step 4: Assess Current Situation (NEW - IMPORTANT)
 
-After collecting goal, assess user's starting point:
+After collecting goal, assess user's starting point using AskUserQuestion:
 
-```markdown
-## Goal Pilot Setup - Step 2/4: Your Current Situation
-
-To give you personalized guidance, I need to understand where you're starting from.
-
-### Current Status
-1. **Starting Point**: Where are you now relative to your goal?
-   - For MRR goal: "Currently $0, have an MVP" or "Already at $2K MRR"
-   - For fitness: "Currently 75kg, 25% body fat"
-   - For learning: "Beginner level, can read basic texts"
-
-2. **Gap Analysis**: What's the distance between now and goal?
-   (I'll help calculate this based on your answers)
 ```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Starting Point",
+      question: "Where are you now relative to your goal?",
+      options: [
+        { label: "Complete beginner", description: "Just starting, no prior experience" },
+        { label: "Some experience", description: "Have tried before, know basics" },
+        { label: "Intermediate", description: "Solid foundation, need to scale" },
+        { label: "Advanced", description: "Close to goal, need final push" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+For specific metrics, prompt user to provide current values (via "Other" option).
 
 ### Step 5: Assess Resources & Constraints (NEW - IMPORTANT)
 
-```markdown
-## Goal Pilot Setup - Step 3/4: Resources & Constraints
+Use AskUserQuestion to collect resource information:
 
-### Time Investment
-1. **Weekly Hours**: How many hours per week can you dedicate?
-   Example: "20 hours/week" or "2 hours/day on weekdays"
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Weekly Hours",
+      question: "How many hours per week can you dedicate to this goal?",
+      options: [
+        { label: "5-10 hours", description: "Part-time, limited availability" },
+        { label: "10-20 hours", description: "Side project level" },
+        { label: "20-40 hours", description: "Significant commitment" },
+        { label: "40+ hours", description: "Full-time focus" }
+      ],
+      multiSelect: false
+    },
+    {
+      header: "Work Style",
+      question: "When are you most productive?",
+      options: [
+        { label: "Morning (6am-12pm)", description: "Early bird" },
+        { label: "Afternoon (12pm-6pm)", description: "Midday focus" },
+        { label: "Evening (6pm-12am)", description: "Night owl" },
+        { label: "Flexible", description: "Varies by day" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
 
-2. **Best Work Times**: When are you most productive?
-   Example: "Mornings before 10am" or "Evenings after kids sleep"
+For team/support:
 
-3. **Schedule Constraints**: Any fixed commitments to work around?
-   Example: "Full-time job 9-6", "Kids pickup at 3pm"
-
-### Financial Resources (if applicable)
-4. **Budget**: Any budget available for this goal?
-   Example: "$500/month for tools and marketing" or "Bootstrap only"
-
-### Support System
-5. **Team/Help**: Do you have help or are you solo?
-   Example: "Solo founder", "Have a co-founder for tech", "Can hire freelancers"
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Support",
+      question: "Do you have help or working solo?",
+      options: [
+        { label: "Solo", description: "Working alone" },
+        { label: "Partner/Co-founder", description: "Have a partner" },
+        { label: "Small team", description: "2-5 people" },
+        { label: "Can hire", description: "Budget for freelancers/contractors" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
 ```
 
 ### Step 6: Assess Skills & Experience (NEW - IMPORTANT)
 
-Based on the goal type, ask relevant skill questions:
+Based on the goal type, use AskUserQuestion to collect skill information:
 
 **For Product/Business Goals:**
-```markdown
-## Goal Pilot Setup - Step 4/4: Skills Assessment
-
-### Technical Skills (1-5 scale: 1=Beginner, 5=Expert)
-- **Development**: Can you build the product yourself?
-- **Design**: UI/UX capabilities?
-- **DevOps**: Deployment, infrastructure?
-
-### Business Skills (1-5 scale)
-- **Marketing**: Content, SEO, paid ads experience?
-- **Sales**: Direct selling, cold outreach?
-- **Product**: User research, feature prioritization?
-
-### Past Experience
-- Have you built/launched products before? Results?
-- Any relevant domain expertise?
-- Biggest lessons from past attempts?
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Tech Skills",
+      question: "What's your technical capability?",
+      options: [
+        { label: "Non-technical", description: "Need to hire for dev work" },
+        { label: "Basic", description: "Can do simple tasks, need help for complex" },
+        { label: "Intermediate", description: "Can build most features" },
+        { label: "Expert", description: "Full-stack, can build anything" }
+      ],
+      multiSelect: false
+    },
+    {
+      header: "Business Skills",
+      question: "Which areas are you strongest in?",
+      options: [
+        { label: "Marketing", description: "Content, SEO, ads" },
+        { label: "Sales", description: "Outreach, closing deals" },
+        { label: "Product", description: "User research, prioritization" },
+        { label: "Operations", description: "Process, systems" }
+      ],
+      multiSelect: true
+    }
+  ]
+})
 ```
 
 **For Fitness Goals:**
-```markdown
-## Goal Pilot Setup - Step 4/4: Fitness Background
-
-### Current Habits
-- **Exercise Frequency**: How often do you currently exercise?
-- **Exercise Types**: What do you do? (gym, running, sports)
-- **Diet**: Current eating habits? Any restrictions?
-
-### History
-- Past fitness attempts? What worked/didn't?
-- Any injuries or health considerations?
-- Access to gym/equipment?
-
-### Knowledge (1-5 scale)
-- Nutrition knowledge?
-- Training program knowledge?
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Exercise Level",
+      question: "How often do you currently exercise?",
+      options: [
+        { label: "Rarely", description: "Less than once a week" },
+        { label: "Sometimes", description: "1-2 times per week" },
+        { label: "Regular", description: "3-4 times per week" },
+        { label: "Daily", description: "5+ times per week" }
+      ],
+      multiSelect: false
+    },
+    {
+      header: "Gym Access",
+      question: "What equipment do you have access to?",
+      options: [
+        { label: "None", description: "Bodyweight only" },
+        { label: "Home gym", description: "Basic equipment at home" },
+        { label: "Gym membership", description: "Full gym access" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
 ```
 
 **For Learning Goals:**
-```markdown
-## Goal Pilot Setup - Step 4/4: Learning Background
-
-### Current Level
-- **Self-assessment**: Where would you place yourself? (Beginner/Intermediate/Advanced)
-- **Specific skills**: What can you already do?
-- **Gaps**: What specifically do you struggle with?
-
-### Learning Style
-- How do you learn best? (videos, reading, practice, courses)
-- Past learning methods tried? Results?
-
-### Resources
-- Courses/materials you have access to?
-- Native speakers/mentors available?
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Current Level",
+      question: "What's your current skill level?",
+      options: [
+        { label: "Beginner", description: "Just starting out" },
+        { label: "Elementary", description: "Know basics" },
+        { label: "Intermediate", description: "Can handle common tasks" },
+        { label: "Advanced", description: "Proficient, refining skills" }
+      ],
+      multiSelect: false
+    },
+    {
+      header: "Learning Style",
+      question: "How do you learn best?",
+      options: [
+        { label: "Video courses", description: "Structured video content" },
+        { label: "Reading", description: "Books, articles, docs" },
+        { label: "Practice", description: "Hands-on projects" },
+        { label: "Mentorship", description: "1-on-1 guidance" }
+      ],
+      multiSelect: true
+    }
+  ]
+})
 ```
 
 ### Step 7: Generate Personalized Milestones
