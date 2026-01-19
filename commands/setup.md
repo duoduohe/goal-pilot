@@ -18,15 +18,34 @@ Initialize the Goal Pilot data structure and define your goal framework. This co
 3. Collects user background for personalized guidance
 4. Sets up Claude Memory pointers
 
-## CRITICAL: Get Current Date First
+## CRITICAL: Get Current Date At Key Points
 
-**BEFORE doing anything else, you MUST get the current date using the Bash tool:**
+**You MUST get the current date using Bash tool at these points:**
+
+1. **At command start** - before any output
+2. **Before generating milestones** - when calculating quarterly dates
+3. **Before creating state.json** - for date fields
+
+Every time you need to reference "today", "this year", or calculate dates:
 
 ```bash
 date +%Y-%m-%d
 ```
 
-Store this result as `TODAY_DATE`. Use this value for all date-related operations in this command. DO NOT rely on your internal knowledge for the current date.
+**NEVER assume the year. ALWAYS run the date command first.**
+
+Example of WRONG behavior:
+```
+# User says goal is for "end of year"
+# Model assumes 2025-12-31 without checking ← WRONG
+```
+
+Example of CORRECT behavior:
+```
+# Before responding about dates, run: date +%Y-%m-%d
+# Result: 2026-01-19
+# Now use 2026 as current year
+```
 
 ## Workflow
 
@@ -175,6 +194,8 @@ Based on the goal type, ask relevant skill questions:
 
 ### Step 7: Generate Personalized Milestones
 
+**IMPORTANT: Before generating milestones, run `date +%Y-%m-%d` again to get current date.**
+
 Based on ALL collected information, generate milestones that account for:
 - User's starting point (realistic targets)
 - Available time (sustainable pace)
@@ -201,6 +222,8 @@ Does this look right? Say "confirm" or suggest changes.
 ```
 
 ### Step 8: Create Data Files
+
+**IMPORTANT: Before creating files, run `date +%Y-%m-%d` again to ensure correct date in state.json.**
 
 After user confirms:
 
