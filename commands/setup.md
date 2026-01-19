@@ -17,9 +17,27 @@ Initialize the Goal Pilot data structure and define your goal framework. This co
 2. Creates empty CSV files with correct headers
 3. Sets up Claude Memory pointers
 
+## CRITICAL: Get Current Date First
+
+**BEFORE doing anything else, you MUST get the current date using the Bash tool:**
+
+```bash
+date +%Y-%m-%d
+```
+
+Store this result as `TODAY_DATE`. Use this value for all date-related operations in this command. DO NOT rely on your internal knowledge for the current date.
+
 ## Workflow
 
-### Step 1: Check Existing Data
+### Step 1: Get Current Date (REQUIRED)
+
+```
+1. Run: date +%Y-%m-%d
+2. Store result as TODAY_DATE
+3. Use TODAY_DATE for all "[today]" placeholders
+```
+
+### Step 2: Check Existing Data
 
 ```
 1. Check if data/state.json already exists

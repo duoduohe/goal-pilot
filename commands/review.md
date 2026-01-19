@@ -21,6 +21,16 @@ Conduct a structured review that:
 4. Updates state.json with calibration patch
 5. Generates summaries (for week/month)
 
+## CRITICAL: Get Current Date First
+
+**BEFORE doing anything else, you MUST get the current date using the Bash tool:**
+
+```bash
+date +%Y-%m-%d
+```
+
+Store this result as `TODAY_DATE`. Use this value for all date fields in CSV records and calculations. DO NOT rely on your internal knowledge for the current date.
+
 ## Review Types
 
 | Type | Trigger | CSV File | Summary Generated |

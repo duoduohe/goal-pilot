@@ -18,6 +18,16 @@ Generate today's prioritized task list based on:
 - Active pins (non-decaying constraints)
 - Calibration adjustments (task granularity, energy modes)
 
+## CRITICAL: Get Current Date First
+
+**BEFORE doing anything else, you MUST get the current date using the Bash tool:**
+
+```bash
+date +%Y-%m-%d
+```
+
+Store this result as `TODAY_DATE`. Use this value for all date calculations and display. DO NOT rely on your internal knowledge for the current date.
+
 ## Prerequisites
 
 - `data/state.json` must exist (run `/goal-pilot:setup` first if not)
@@ -25,13 +35,14 @@ Generate today's prioritized task list based on:
 
 ## Workflow
 
-### Step 1: Load State and Check Prerequisites
+### Step 1: Get Current Date and Load State
 
 ```
-1. Read data/state.json
-2. If not found → Prompt user to run /goal-pilot:setup
-3. Validate schema_version
-4. Load calibration.task_adjustment flags
+1. Run: date +%Y-%m-%d → Store as TODAY_DATE
+2. Read data/state.json
+3. If not found → Prompt user to run /goal-pilot:setup
+4. Validate schema_version
+5. Load calibration.task_adjustment flags
 ```
 
 ### Step 2: Check Progress Deviation
