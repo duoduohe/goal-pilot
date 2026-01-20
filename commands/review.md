@@ -47,6 +47,65 @@ Also run date command again:
 | week | Explicit "week" | reviews_weekly.csv | summaries_weekly.csv |
 | month | Explicit "month" | reviews_monthly.csv | summaries_monthly.csv |
 
+## Auto-Detection Logic (IMPORTANT)
+
+**When user runs `/goal-pilot:review` without arguments, automatically determine review type:**
+
+```
+1. Get current date: date +%Y-%m-%d → TODAY
+2. Read state.json.last_run.last_review → LAST_REVIEW_DATE
+3. Read state.json.last_run.last_weekly_review → LAST_WEEKLY
+4. Read state.json.last_run.last_monthly_review → LAST_MONTHLY
+
+Auto-detection rules (check in order):
+
+IF TODAY is in a new month compared to LAST_MONTHLY (or LAST_MONTHLY is empty):
+   → Trigger MONTHLY review first
+   → After completion, continue to check weekly/daily
+
+ELSE IF TODAY is 7+ days after LAST_WEEKLY (or LAST_WEEKLY is empty):
+   → Trigger WEEKLY review first
+   → After completion, continue to check daily
+
+ELSE IF it's Sunday or Monday AND no weekly review this week:
+   → Suggest weekly review, but user can skip to daily
+
+ELSE:
+   → Trigger DAILY review
+```
+
+### Display Auto-Detection Result
+
+```markdown
+## Review Type: [Auto-detected]
+
+Based on your last reviews:
+- Last daily: [date or "never"]
+- Last weekly: [date or "never"]
+- Last monthly: [date or "never"]
+
+**Recommended**: [Monthly/Weekly/Daily] review
+
+[If monthly or weekly is recommended]
+After this review, I'll also prompt for a daily review.
+
+Proceed with [type] review? (or say "daily" to skip to daily review)
+```
+
+### Update last_run After Review
+
+After completing each review type, update state.json:
+
+```json
+{
+  "last_run": {
+    "last_review": "[TODAY]",
+    "last_weekly_review": "[TODAY if weekly]",
+    "last_monthly_review": "[TODAY if monthly]"
+  }
+}
+```
+
 ## Daily Review
 
 ### Fields to Collect

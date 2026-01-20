@@ -504,6 +504,8 @@ After user confirms:
   "last_run": {
     "today": "[today]",
     "last_review": "",
+    "last_weekly_review": "",
+    "last_monthly_review": "",
     "last_calibration": ""
   }
 }
