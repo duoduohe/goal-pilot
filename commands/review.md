@@ -16,10 +16,11 @@ examples:
 
 Conduct a structured review that:
 1. Collects specific fields (not free-form)
-2. Persists data to CSV files
-3. Triggers calibrator subagent
-4. Updates state.json with calibration patch
-5. Generates summaries (for week/month)
+2. **Compares effort vs daily budget** from state.json
+3. Persists data to CSV files
+4. Triggers calibrator subagent
+5. Updates state.json with calibration patch
+6. Generates summaries (for week/month)
 
 ## CRITICAL: Get Current Date First
 
@@ -160,10 +161,25 @@ Anything else to record?
 | Blocked | [blocked] |
 | Deviation | [reason] |
 | Effort | [X] min |
+| **Daily Budget** | [daily_hours from state.json] min |
+| **Utilization** | [effort / budget * 100]% |
 | Energy | [X]/5 |
 | Mood | [X]/5 |
 | Progress | [signal] |
 | Tomorrow | [focus] |
+
+### Time Analysis
+
+[If utilization < 50%]
+- Low time utilization today. Consider:
+  - Were tasks too ambitious?
+  - External interruptions?
+  - Energy/focus issues?
+
+[If utilization > 100%]
+- Exceeded daily budget. Consider:
+  - Adjusting budget in setup
+  - Breaking tasks into smaller chunks
 
 ### Calibration Applied
 
@@ -202,6 +218,8 @@ Anything else to record?
 ### This Week's Summary
 [Auto-generated from daily reviews]
 - Total effort: [X] minutes
+- **Weekly budget**: [daily_hours * 7] min
+- **Utilization**: [total_effort / weekly_budget * 100]%
 - Avg energy: [X]/5
 - Avg mood: [X]/5
 - Tasks completed: [X]
@@ -285,6 +303,8 @@ summary_text = "[Generated 1-2 sentence summary]"
 ### This Month's Summary
 [Auto-generated from weekly summaries]
 - Total effort: [X] hours
+- **Monthly budget**: [daily_hours * 30] hours
+- **Utilization**: [total_effort / monthly_budget * 100]%
 - Avg energy: [X]/5
 - Avg mood: [X]/5
 - Weeks reviewed: [X]

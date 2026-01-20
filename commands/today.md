@@ -13,6 +13,8 @@ examples:
 
 Generate today's prioritized task list based on:
 - Current goal and milestones from state.json
+- **Daily time budget** from background.resources.daily_hours
+- **Best productive time** from background.resources.best_time
 - Recent daily reviews (L0 context, last 7 days)
 - Weekly summaries (L1 context, last 4 weeks)
 - Active pins (non-decaying constraints)
@@ -50,6 +52,8 @@ Also run date command again:
 3. If not found → Prompt user to run /goal-pilot:setup
 4. Validate schema_version
 5. Load calibration.task_adjustment flags
+6. Load background.resources.daily_hours → DAILY_BUDGET_MINUTES
+7. Load background.resources.best_time → BEST_TIME
 ```
 
 ### Step 2: Check Progress Deviation
@@ -136,10 +140,12 @@ Pass to planner:
 - Weighted context (L0/L1/pins)
 - task_adjustment flags
 - Today's date
+- **DAILY_BUDGET_MINUTES** - Total task time must not exceed this
+- **BEST_TIME** - Schedule deep work during this period
 
 Planner outputs:
-- Top 3 Outcomes for today
-- Next Actions for each outcome
+- Top 3 Outcomes for today (total time <= DAILY_BUDGET_MINUTES)
+- Next Actions for each outcome with time estimates
 - Risk/blocker warnings
 
 ### Step 6: Display Today's Tasks
@@ -151,6 +157,11 @@ Planner outputs:
 **Goal**: [goal statement]
 **Phase**: [current_phase] | **Progress**: [X]%
 **Milestone**: [M#] due [date] ([days] days)
+
+### Time Budget
+- **Daily Budget**: [DAILY_BUDGET_MINUTES] min
+- **Best Time**: [BEST_TIME]
+- **Today's Plan**: [total_planned_minutes] min
 
 [Show any active adjustments]
 
